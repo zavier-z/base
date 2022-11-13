@@ -2,14 +2,17 @@
 
 #include <cstdlib>
 #include <cstdarg>
+#include <string>
 #include <exception>
 
 namespace base {
 
+std::string GetStackTrace();
+
 [[noreturn]] void Die() noexcept;
+[[noreturn]] void DieNow() noexcept;
 [[noreturn]] void Die(const char*, ...);
 [[noreturn]] void DieV(const char*, va_list vl);
-[[noreturn]] void DieNow() noexcept { std::abort(); }
 
 namespace _ {
 
