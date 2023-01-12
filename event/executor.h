@@ -2,6 +2,7 @@
 
 #include <functional>
 
+namespace base {
 namespace event {
 
 // |Executor| provides the execution environment for function/callback. the
@@ -21,3 +22,4 @@ class LocalExecutor : public Executor {
 };
 
 }  // namespace event
+}  // namespace base

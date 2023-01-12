@@ -111,8 +111,7 @@ typename ExtractFunctionSig<F>::WrapperType BindWeak(
 template <typename Object, typename F>
 typename ExtractFunctionSig<F>::WrapperType BindWeak(Object* raw,
                                                      F&& callback) {
-  using WrapperType = typename ExtractFunctionSig<F>::WrapperType;
-  return WrapperType(raw->weak_from_this(), std::forward<F>(callback));
+  return BindWeak(raw->weak_from_this(), std::forward<F>(callback));
 }
 
 // BindStrong
@@ -129,6 +128,12 @@ typename ExtractFunctionSig<F>::WrapperType BindStrong(
   using WrapperType = typename ExtractFunctionSig<F>::WrapperType;
   return WrapperType{
       BindStrongFunctor(std::move(ptr), std::forward<F>(callback))};
+}
+
+template <typename Object, typename F>
+typename ExtractFunctionSig<F>::WrapperType BindStrong(Object* raw,
+                                                       F&& callback) {
+  return BindStrong(raw->shared_from_this(), std::forward<F>(callback));
 }
 
 }  // namespace base

@@ -22,3 +22,7 @@
 template <typename T>
 void UNUSE(T&&) noexcept {}
 
+#define CONCATE(A, B) A##B
+
+#define STR(...) #__VA_ARGS__
+#define RSTR(...) R"""""(__VA_ARGS__)"""""

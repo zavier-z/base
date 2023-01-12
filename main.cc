@@ -1,4 +1,6 @@
 #include <common/error.h>
+#include <common/common.h>
+#include <iostream>
 
 namespace base {
 class CustomErrorCategory : public Error::Category {
@@ -19,6 +21,8 @@ const base::Error::Category* Cat() {
 
 int main(int argc, char* argv[]) {
   base::Error err(Cat(), 0);
+
+  std::cout << base::GetStackTrace() << std::endl;
 
   return 0;
 }

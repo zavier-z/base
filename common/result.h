@@ -11,6 +11,8 @@ namespace base {
 template <typename T>
 class Result {
  public:
+  using ValueTyupe = T;
+
   Result() : v_() {}
   Result(const T& ok) : v_(ok) {}
   Result(T&& ok) : v_(std::move(ok)) {}
@@ -48,6 +50,8 @@ class Result {
 template <>
 class Result<void> {
  public:
+  using ValueType = void;
+
   Result() : v_() {}
   Result(const Error& err) : v_(err) {}
   Result(Error&& err) : v_(std::move(err)) {}
@@ -73,6 +77,12 @@ class Result<void> {
  private:
   Error v_;
 };
+
+template <typename T>
+struct IsResult : std::false_type {};
+
+template <typename T>
+struct IsResult<Result<T>> : std::true_type {};
 
 template <typename T>
 T Result<T>::PassResult() {
